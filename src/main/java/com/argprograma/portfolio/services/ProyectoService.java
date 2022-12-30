@@ -34,7 +34,7 @@ public class ProyectoService {
         Optional<Proyecto> proyecto = proyectoRepository.findById(idProyecto);
 
         if (!proyecto.isPresent()) {
-            throw new NotFoundException("Educación no encontrada");
+            throw new NotFoundException("Proyecto no encontrado");
         }
 
         return proyecto.get();
@@ -68,7 +68,7 @@ public class ProyectoService {
         try {
             proyectoRepository.deleteById(idProyecto);
         } catch (Exception e) {
-            throw new NotFoundException("Educación no encontrada");
+            throw new NotFoundException("Proyecto no encontrado");
         }
     }
 
@@ -77,7 +77,7 @@ public class ProyectoService {
         Optional<Proyecto> proyecto = proyectoRepository.findById(idProyecto);
 
         if(!proyecto.isPresent()) {
-            throw new NotFoundException("Educación no encontrada");
+            throw new NotFoundException("Proyecto no encontrado");
         }
 
         proyecto.get().setEstadoProyecto("A");
@@ -89,7 +89,7 @@ public class ProyectoService {
         Optional<Proyecto> proyecto = proyectoRepository.findById(idProyecto);
 
         if(!proyecto.isPresent()) {
-            throw new NotFoundException("Educación no encontrada");
+            throw new NotFoundException("Proyecto no encontrado");
         }
 
         proyecto.get().setEstadoProyecto("B");
