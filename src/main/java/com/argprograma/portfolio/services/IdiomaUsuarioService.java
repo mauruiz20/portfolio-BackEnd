@@ -3,6 +3,7 @@ package com.argprograma.portfolio.services;
 import com.argprograma.portfolio.exceptions.BadRequestException;
 import com.argprograma.portfolio.exceptions.NotFoundException;
 import com.argprograma.portfolio.models.IdiomaUsuario;
+import com.argprograma.portfolio.models.RedUsuario;
 import com.argprograma.portfolio.repositories.IdiomaUsuarioRepository;
 import com.argprograma.portfolio.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class IdiomaUsuarioService {
         idiomaUsuario.setEstadoIdiomaUsuario("A");
         validarCampos(idiomaUsuario);
 
-        if(!usuarioRepository.existsById(idiomaUsuario.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(idiomaUsuario.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -55,7 +56,7 @@ public class IdiomaUsuarioService {
 
         validarCampos(idiomaUsuario);
 
-        if(!usuarioRepository.existsById(idiomaUsuario.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(idiomaUsuario.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -95,9 +96,13 @@ public class IdiomaUsuarioService {
         idiomaUsuarioRepository.save(idiomaUsuario.get());
     }
 
+    public List<IdiomaUsuario> listarIdiomasUsuarioDeUsuario(int idUsuario) {
+
+        return idiomaUsuarioRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(IdiomaUsuario idiomaUsuario) {
-        if(idiomaUsuario.getUsuario() == null ||
-                idiomaUsuario.getIdioma() == null ||
+        if(idiomaUsuario.getIdioma() == null ||
                 idiomaUsuario.getNivel() == null || idiomaUsuario.getNivel().isBlank() ||
                 idiomaUsuario.getEstadoIdiomaUsuario() == null || idiomaUsuario.getEstadoIdiomaUsuario().isBlank()
         ) {

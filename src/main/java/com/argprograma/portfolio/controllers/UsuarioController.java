@@ -1,13 +1,7 @@
 package com.argprograma.portfolio.controllers;
 
-import com.argprograma.portfolio.models.Experiencia;
-import com.argprograma.portfolio.models.Habilidad;
-import com.argprograma.portfolio.models.Proyecto;
-import com.argprograma.portfolio.models.Usuario;
-import com.argprograma.portfolio.services.ExperienciaService;
-import com.argprograma.portfolio.services.HabilidadService;
-import com.argprograma.portfolio.services.ProyectoService;
-import com.argprograma.portfolio.services.UsuarioService;
+import com.argprograma.portfolio.models.*;
+import com.argprograma.portfolio.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +17,21 @@ public class UsuarioController {
     HabilidadService habilidadService;
     ExperienciaService experienciaService;
     ProyectoService proyectoService;
+    EducacionService educacionService;
+    RedUsuarioService redUsuarioService;
+    IdiomaUsuarioService idiomaUsuarioService;
 
     @Autowired
     public UsuarioController(UsuarioService usuarioService, HabilidadService habilidadService, ExperienciaService experienciaService,
-                             ProyectoService proyectoService) {
-
+                             ProyectoService proyectoService, EducacionService educacionService, RedUsuarioService redUsuarioService,
+                             IdiomaUsuarioService idiomaUsuarioService) {
         this.usuarioService = usuarioService;
         this.habilidadService = habilidadService;
         this.experienciaService = experienciaService;
         this.proyectoService = proyectoService;
+        this.educacionService = educacionService;
+        this.redUsuarioService = redUsuarioService;
+        this.idiomaUsuarioService = idiomaUsuarioService;
     }
 
     @GetMapping()
@@ -103,5 +103,26 @@ public class UsuarioController {
 
         List<Proyecto> proyectos = proyectoService.listarProyectosUsuario(idUsuario);
         return new ResponseEntity<>(proyectos, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaEducaciones")
+    public ResponseEntity<List<Educacion>> listarEducaciones(@PathVariable("id") int idUsuario) {
+
+        List<Educacion> educaciones = educacionService.listarEducacionesUsuario(idUsuario);
+        return new ResponseEntity<>(educaciones, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaRedes")
+    public ResponseEntity<List<RedUsuario>> listarRedes(@PathVariable("id") int idUsuario) {
+
+        List<RedUsuario> redesUsuario = redUsuarioService.listarRedesUsuarioDeUsuario(idUsuario);
+        return new ResponseEntity<>(redesUsuario, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaIdiomas")
+    public ResponseEntity<List<IdiomaUsuario>> listarIdiomas(@PathVariable("id") int idUsuario) {
+
+        List<IdiomaUsuario> idiomasUsuario = idiomaUsuarioService.listarIdiomasUsuarioDeUsuario(idUsuario);
+        return new ResponseEntity<>(idiomasUsuario, HttpStatus.OK);
     }
 }

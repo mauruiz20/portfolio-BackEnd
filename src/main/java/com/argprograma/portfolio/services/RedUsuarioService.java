@@ -2,6 +2,7 @@ package com.argprograma.portfolio.services;
 
 import com.argprograma.portfolio.exceptions.BadRequestException;
 import com.argprograma.portfolio.exceptions.NotFoundException;
+import com.argprograma.portfolio.models.Proyecto;
 import com.argprograma.portfolio.models.RedUsuario;
 import com.argprograma.portfolio.repositories.RedUsuarioRepository;
 import com.argprograma.portfolio.repositories.UsuarioRepository;
@@ -44,7 +45,7 @@ public class RedUsuarioService {
         redUsuario.setEstadoRedUsuario("A");
         validarCampos(redUsuario);
 
-        if(!usuarioRepository.existsById(redUsuario.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(redUsuario.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -55,7 +56,7 @@ public class RedUsuarioService {
 
         validarCampos(redUsuario);
 
-        if(!usuarioRepository.existsById(redUsuario.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(redUsuario.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -95,9 +96,13 @@ public class RedUsuarioService {
         redUsuarioRepository.save(redUsuario.get());
     }
 
+    public List<RedUsuario> listarRedesUsuarioDeUsuario(int idUsuario) {
+
+        return redUsuarioRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(RedUsuario redUsuario) {
-        if(redUsuario.getUsuario() == null ||
-                redUsuario.getRed() == null ||
+        if(redUsuario.getRed() == null ||
                 redUsuario.getEstadoRedUsuario() == null || redUsuario.getEstadoRedUsuario().isBlank()
         ) {
             throw new BadRequestException("Parámetros erróneos");

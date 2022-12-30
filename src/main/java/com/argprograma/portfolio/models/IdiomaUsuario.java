@@ -20,9 +20,9 @@ public class IdiomaUsuario {
     @Column(name = "IdIdiomaUsuario")
     private int idIdiomaUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario")
-    private Usuario usuario;
+
+    @Column(name = "IdUsuario")
+    private int idUsuario;
 
     @ManyToOne
     @JoinColumn(name = "IdIdioma")

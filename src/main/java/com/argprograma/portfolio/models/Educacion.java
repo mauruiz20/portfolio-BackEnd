@@ -20,9 +20,8 @@ public class Educacion {
     @Column(name = "IdEducacion")
     private int idEducacion;
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario")
-    private Usuario usuario;
+    @Column(name = "IdUsuario")
+    private int idUsuario;
 
     @Column(name = "Educacion")
     private String educacion;

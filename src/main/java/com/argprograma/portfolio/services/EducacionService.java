@@ -45,7 +45,7 @@ public class EducacionService {
         educacion.setEstadoEdu("A");
         validarCampos(educacion);
 
-        if(!usuarioRepository.existsById(educacion.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(educacion.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -56,7 +56,7 @@ public class EducacionService {
 
         validarCampos(educacion);
 
-        if(!usuarioRepository.existsById(educacion.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(educacion.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -96,9 +96,13 @@ public class EducacionService {
         educacionRepository.save(educacion.get());
     }
 
+    public List<Educacion> listarEducacionesUsuario(int idUsuario) {
+
+        return educacionRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(Educacion educacion) {
-        if(educacion.getUsuario() == null ||
-                educacion.getEducacion() == null || educacion.getEducacion().isBlank() ||
+        if(educacion.getEducacion() == null || educacion.getEducacion().isBlank() ||
                 educacion.getFechaInicio() == null || educacion.getFechaInicio().isBlank() ||
                 educacion.getInstituto() == null || educacion.getInstituto().isBlank() ||
                 educacion.getLogo() == null || educacion.getLogo().isBlank() ||
