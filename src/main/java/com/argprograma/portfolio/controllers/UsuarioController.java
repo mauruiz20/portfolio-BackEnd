@@ -1,6 +1,12 @@
 package com.argprograma.portfolio.controllers;
 
+import com.argprograma.portfolio.models.Experiencia;
+import com.argprograma.portfolio.models.Habilidad;
+import com.argprograma.portfolio.models.Proyecto;
 import com.argprograma.portfolio.models.Usuario;
+import com.argprograma.portfolio.services.ExperienciaService;
+import com.argprograma.portfolio.services.HabilidadService;
+import com.argprograma.portfolio.services.ProyectoService;
 import com.argprograma.portfolio.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +20,18 @@ import java.util.List;
 public class UsuarioController {
 
     UsuarioService usuarioService;
+    HabilidadService habilidadService;
+    ExperienciaService experienciaService;
+    ProyectoService proyectoService;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, HabilidadService habilidadService, ExperienciaService experienciaService,
+                             ProyectoService proyectoService) {
+
         this.usuarioService = usuarioService;
+        this.habilidadService = habilidadService;
+        this.experienciaService = experienciaService;
+        this.proyectoService = proyectoService;
     }
 
     @GetMapping()
@@ -68,5 +82,26 @@ public class UsuarioController {
 
         usuarioService.darBajaUsuario(idUsuario);
         return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaHabilidades")
+    public ResponseEntity<List<Habilidad>> listarHabilidades(@PathVariable("id") int idUsuario) {
+
+        List<Habilidad> habilidades = habilidadService.listarHabilidadesUsuario(idUsuario);
+        return new ResponseEntity<>(habilidades, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaExperiencias")
+    public ResponseEntity<List<Experiencia>> listarExperiencias(@PathVariable("id") int idUsuario) {
+
+        List<Experiencia> experiencias = experienciaService.listarExperienciasUsuario(idUsuario);
+        return new ResponseEntity<>(experiencias, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/listaProyectos")
+    public ResponseEntity<List<Proyecto>> listarProyectos(@PathVariable("id") int idUsuario) {
+
+        List<Proyecto> proyectos = proyectoService.listarProyectosUsuario(idUsuario);
+        return new ResponseEntity<>(proyectos, HttpStatus.OK);
     }
 }

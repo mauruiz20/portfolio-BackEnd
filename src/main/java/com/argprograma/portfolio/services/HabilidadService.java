@@ -44,7 +44,7 @@ public class HabilidadService {
         habilidad.setEstadoHab("A");
         validarCampos(habilidad);
 
-        if(!usuarioRepository.existsById(habilidad.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(habilidad.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -55,7 +55,7 @@ public class HabilidadService {
 
         validarCampos(habilidad);
 
-        if(!usuarioRepository.existsById(habilidad.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(habilidad.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -95,9 +95,13 @@ public class HabilidadService {
         habilidadRepository.save(habilidad.get());
     }
 
+    public List<Habilidad> listarHabilidadesUsuario(int idUsuario) {
+
+        return habilidadRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(Habilidad habilidad) {
-        if(habilidad.getUsuario() == null ||
-                habilidad.getHabilidad() == null || habilidad.getHabilidad().isBlank() ||
+        if(habilidad.getHabilidad() == null || habilidad.getHabilidad().isBlank() ||
                 habilidad.getGradoDominio() == null || habilidad.getGradoDominio().isBlank() ||
                 habilidad.getEstadoHab() == null || habilidad.getEstadoHab().isBlank()
         ) {

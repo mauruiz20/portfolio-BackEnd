@@ -3,6 +3,7 @@ package com.argprograma.portfolio.services;
 import com.argprograma.portfolio.exceptions.BadRequestException;
 import com.argprograma.portfolio.exceptions.NotFoundException;
 import com.argprograma.portfolio.models.Experiencia;
+import com.argprograma.portfolio.models.Habilidad;
 import com.argprograma.portfolio.repositories.ExperienciaRepository;
 import com.argprograma.portfolio.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ExperienciaService {
         experiencia.setEstadoExp("A");
         validarCampos(experiencia);
 
-        if(!usuarioRepository.existsById(experiencia.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(experiencia.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -56,7 +57,7 @@ public class ExperienciaService {
 
         validarCampos(experiencia);
 
-        if(!usuarioRepository.existsById(experiencia.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(experiencia.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -96,9 +97,13 @@ public class ExperienciaService {
         experienciaRepository.save(experiencia.get());
     }
 
+    public List<Experiencia> listarExperienciasUsuario(int idUsuario) {
+
+        return experienciaRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(Experiencia experiencia) {
-        if(experiencia.getUsuario() == null ||
-                experiencia.getExperiencia() == null || experiencia.getExperiencia().isBlank() ||
+        if(experiencia.getExperiencia() == null || experiencia.getExperiencia().isBlank() ||
                 experiencia.getLugar() == null || experiencia.getLugar().isBlank() ||
                 experiencia.getTituloPuesto() == null || experiencia.getTituloPuesto().isBlank() ||
                 experiencia.getLogoEmpresa() == null || experiencia.getLogoEmpresa().isBlank() ||

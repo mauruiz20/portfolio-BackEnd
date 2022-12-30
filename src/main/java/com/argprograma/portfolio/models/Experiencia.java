@@ -20,9 +20,8 @@ public class Experiencia {
     @Column(name = "IdExperiencia")
     private int idExperiencia;
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario")
-    private Usuario usuario;
+    @Column(name = "IdUsuario")
+    private int idUsuario;
 
     @Column(name = "Experiencia")
     private String experiencia;

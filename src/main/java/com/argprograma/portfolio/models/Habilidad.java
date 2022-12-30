@@ -21,9 +21,8 @@ public class Habilidad {
     @Column(name = "IdHabilidad")
     private int idHabilidad;
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario")
-    private Usuario usuario;
+    @Column(name = "IdUsuario")
+    private int idUsuario;
 
     @Column(name = "Habilidad")
     private String habilidad;

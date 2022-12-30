@@ -20,9 +20,8 @@ public class Proyecto {
     @Column(name = "IdProyecto")
     private int idProyecto;
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario")
-    private Usuario usuario;
+    @Column(name = "IdUsuario")
+    private int idUsuario;
 
     @Column(name = "Proyecto")
     private String proyecto;

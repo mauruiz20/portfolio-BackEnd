@@ -45,7 +45,7 @@ public class ProyectoService {
         proyecto.setEstadoProyecto("A");
         validarCampos(proyecto);
 
-        if(!usuarioRepository.existsById(proyecto.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(proyecto.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -56,7 +56,7 @@ public class ProyectoService {
 
         validarCampos(proyecto);
 
-        if(!usuarioRepository.existsById(proyecto.getUsuario().getIdUsuario())) {
+        if(!usuarioRepository.existsById(proyecto.getIdUsuario())) {
             throw new BadRequestException("No existe el usuario");
         }
 
@@ -96,9 +96,13 @@ public class ProyectoService {
         proyectoRepository.save(proyecto.get());
     }
 
+    public List<Proyecto> listarProyectosUsuario(int idUsuario) {
+
+        return proyectoRepository.findByIdUsuario(idUsuario);
+    }
+
     private void validarCampos(Proyecto proyecto) {
-        if(proyecto.getUsuario() == null ||
-                proyecto.getProyecto() == null || proyecto.getProyecto().isBlank() ||
+        if(proyecto.getProyecto() == null || proyecto.getProyecto().isBlank() ||
                 proyecto.getFechaInicio() == null || proyecto.getFechaInicio().isBlank() ||
                 proyecto.getEstadoProyecto() == null || proyecto.getEstadoProyecto().isBlank()
         ) {
